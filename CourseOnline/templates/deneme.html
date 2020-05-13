@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Course Online</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function formReset() {
+            document.getElementById("add_announcement").reset();
+        }
+
+        function submitForm() {
+            document.getElementById("add_announcement").submit();
+
+        }
+
+
+    </script>
+    <style>
+
+        #container_fluid{
+            #border:2px solid #4f4f4f;
+            padding:0;
+            margin:0;
+            width:100%;
+            height:100%;
+            display: grid;
+            #grid-template-rows: 17% 73% 10%;
+        }
+
+        #header{
+            border:2px solid #4f4f4f;
+            display: flex;
+            background-color: teal;
+            padding-left: 1vh;
+            padding-top: 1vh;
+            padding-right: 1vh;
+
+        {#height: 17vh;#}
+        {#border: 2px solid #4f4f4f;#}
+        }
+
+        #header-left{
+            padding: 1vh;
+            #border: 2px solid #4f4f4f;
+            flex:2;
+            text-align: left;
+        }
+        #header-middle{
+            padding-left: 1vh;
+            padding-top: 1vh;
+            padding-right: 1vh;
+            #border: 2px solid #4f4f4f;
+            flex:8;
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+        }
+
+        #header-middle-up{
+            #border: 2px solid #4f4f4f;
+            flex:3;
+            padding-left: 1vh;
+        }
+        #header-middle-down{
+            #border: 2px solid #4f4f4f;
+            flex:7;
+            display: flex;
+            align-items: flex-end;
+            padding-left: 1vh;
+        }
+
+        #header-right{
+            #border: 2px solid #4f4f4f;
+            flex:2;
+            text-align: right;
+            width: 100%;
+            height: 110px;
+            min-width: fit-content;
+            padding: 1vh;
+        }
+
+        #content{
+            margin:0px;
+            text-align: left;
+            #border: 2px solid black;
+            height: 100vh;
+        {#height: 78vh;#}
+        }
+        #content-left{
+            min-width: fit-content;
+            padding-left: 1vh;
+            #border: 2px solid black;
+        {#background-color: teal;#}
+            width:100%;
+        }
+        #content-middle{
+            border: 2px solid black;
+            width: 100%;
+            min-height: 100%;
+
+        }
+        #content-right{
+            #border: 2px solid black;
+        {#background-color: teal;#}
+            width: 100%;
+        }
+
+
+        #footer{
+            text-align: center;
+            border: 2px solid #4f4f4f;
+        }
+        body{
+            #width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+
+</head>
+<body>
+
+
+<div class="container-fluid", id="container_fluid">
+
+    <div class="header", id="header">
+        <div id="header-left">
+            <h5>header1</h5>
+        </div>
+
+        <div id="header-middle">
+            <div id="header-middle-up">
+                <h5>üst</h5>
+            </div>
+            <div id="header-middle-down">
+                <h5>alt</h5>
+            </div>
+        </div>
+
+        <div id="header-right">
+            {#            <form>#}
+            {#                <input type="email" class="form-control form-control-sm" id="email" placeholder="Enter email" name="email">#}
+            {#                <input type="password" class="form-control form-control-sm" id="pwd" placeholder="Enter password" name="pswd">#}
+            {#                <label class="form-check-label input-sm" >#}
+            {#                    <input class="form-check-input form-control-sm" type="checkbox" name="remember"> Remember me#}
+            {#                </label>#}
+            {#                <button type="submit" class="btn btn-primary btn-sm">Submit</button>#}
+            {#            </form>#}
+
+            {% if user.is_authenticated %}
+                <p>Hello, {{ request.user }}</p>
+                <form method="post" action="{% url 'Logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout"/>
+                </form>
+            {% else %}
+                {% block content %}
+                    {% if AuthenticationForm.errors %}
+                        <p>Your username and password didn't match. Please try again.</p>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'Login' %}">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>{{ AuthenticationForm.username.label_tag }}</td>
+                            <td>{{ AuthenticationForm.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ AuthenticationForm.password.label_tag }}</td>
+                            <td>{{ AuthenticationForm.password }}</td>
+                        </tr>
+                    </table>
+
+                    {#                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>#}
+                    <input type="submit" value="Login"/>
+                {% endblock %}
+            </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="row", id="content">
+        <div class="col-sm-2", id="content-left">
+            <h5>content-left</h5>
+        </div>
+
+        <div class="col-sm-8", id="content-middle">
+            <h5>content-middle</h5>
+
+
+            {% if user.groups.all.0.name == "Student" %}
+
+                {% for Announcement in announcements %}
+                    <dl>
+                        <dt>{{ Announcement.created_date }} by {{ Announcement.author }}</dt>
+                        <dt>{{ Announcement.title }}</dt>
+                        <dd>   - {{ Announcement.content|linebreaksbr }}</dd>
+                    </dl>
+                    <hr>
+                {% endfor %}
+
+            {% endif %}
+
+
+{#            {% if user.groups.all.0.name == "Instructor" %}#}
+{#                {% for Announcement in announcements %}#}
+{#                    <dl>#}
+{#                        <p style="font-size:10px; margin-bottom:0">{{ Announcement.created_date }} by {{ Announcement.author }}</p>#}
+{#                        <dt style="text-decoration: underline; margin-top:0">{{ Announcement.title }}</dt>#}
+{#                        <dd>   - {{ Announcement.content|linebreaksbr }}</dd>#}
+{#                    </dl>#}
+{#                    <hr>#}
+{#                {% endfor %}#}
+{##}
+{##}
+{#                <div style=" display: flex; flex-direction: row ">#}
+{#                    <div style="flex: 100%;">#}
+{#                        <form action={% url 'add_announcement' %}  id="add_announcement" method="POST" class="post-form">{% csrf_token %}#}
+{#                            <dl>#}
+{#                                <dt><input type="text" name="title" placeholder="Title" style="width:100%"> </dt>#}
+{#                                <br>#}
+{#                                <dd><textarea rows="5" name="content" placeholder="Content" style="width:100%"></textarea></dd>#}
+{#                            </dl>#}
+{##}
+{#                        </form>#}
+{#                    </div>#}
+{##}
+{#                    <div style="flex:content; min-width: fit-content;text-align:center; margin-left: 5px" >#}
+{#                        <dt><button type="submit" id="add_announcement" onclick="submitForm()" style="width:65px">Save</button></dt>#}
+{#                        <br>#}
+{#                        <dt><button id="add_announcement" onclick="formReset()" style="width:65px">Cancel</button></dt>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{##}
+{#            {% endif %}#}
+
+            <!-- List of uploaded documents -->
+            {% if documents %}
+                <ul>
+                    {% for document in documents %}
+                        <li><a href="{{ document.doc_file.url }}" download>{{ document.doc_file.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No documents.</p>
+            {% endif %}
+
+            <!-- Upload form. Note enctype attribute! -->
+            <form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>{{ form.non_field_errors }}</p>
+
+                <p>{{ form.doc_file.label_tag }} {{ form.doc_file.help_text }}</p>
+
+                <p>
+                    {{ form.doc_file.errors }}
+                    {{ form.doc_file }}
+                </p>
+
+                <p><input type="submit" value="Upload"/></p>
+            </form>
+
+        </div>
+        <div class="col-sm-2", id="content-right">
+            <h5>content-right</h5>
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <h5>footer</h5>
+    </div>
+
+</div>
+
+
+
+
+
+</body>
+</html>

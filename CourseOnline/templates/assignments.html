@@ -1,0 +1,240 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Course Online</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/CourseOnline.css' %}">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        function formReset() {
+            document.getElementById("assignment").reset();
+        }
+
+        function submitForm() {
+            document.getElementById("assignment").submit();
+
+        }
+
+    </script>
+</head>
+<body>
+
+
+<div class="container-fluid", id="container_fluid">
+
+    <div class="header", id="header">
+        <div id="header-left">
+
+        </div>
+
+        <div id="header-middle">
+            <div id="header-middle-up">
+                <button class="btn" onclick="location.href='/'" style="background-color: DodgerBlue; border: none;color: white;padding: 5px 10px;font-size: 16px;cursor: pointer;">
+                    <i class="fa fa-home"></i>
+                </button>            </div>
+            <div id="header-middle-down">
+                <h5>{{ assignments.0.lecture.name }} Assignment</h5>
+            </div>
+        </div>
+
+        <div id="header-right">
+
+            {% if user.is_authenticated %}
+                <p>Hello, {{ request.user }}</p>
+                <form method="post" action="{% url 'Logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout"/>
+                </form>
+            {% else %}
+                {% block content %}
+                    {% if AuthenticationForm.errors %}
+                        <p>Your username and password didn't match. Please try again.</p>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'Login' %}">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>{{ AuthenticationForm.username.label_tag }}</td>
+                            <td>{{ AuthenticationForm.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ AuthenticationForm.password.label_tag }}</td>
+                            <td>{{ AuthenticationForm.password }}</td>
+                        </tr>
+                    </table>
+
+                    {#                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>#}
+                    <input type="submit" value="Login"/>
+                {% endblock %}
+            </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="row", id="content">
+        <div class="col-sm-2", id="content-left">
+            <br>
+            {% if user.is_authenticated %}
+                <form action={% url 'search' %}  id="search-form" method="GET" class="post-form">
+                    <div>
+                        <button onclick="location.href='/search'" style="width: 100%"><a href="/search">search</a></button>
+                        {#                      <button style="width: 100%"><a href="search">search</a></button>#}
+                    </div>
+                </form>
+                <hr>
+                {% for lecture in lectures %}
+                    <a href="{% url 'lecture' pk=lecture.pk %}">{{ lecture.name|linebreaksbr }}</a>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-sm-10", id="content-middle">
+            <br>
+            {% if request.user.groups.all.0.name == "Student" %}
+                {% load auth_extras %}
+
+                {% for assignment in assignments %}
+                    <div id = "{{ assignment.pk }}" style="display: block">
+                        <div  style=" display: flex; flex-direction: row ">
+                            <div style="flex: 100%;">
+                                <dl>
+                                    <p style="font-size:10px; margin-bottom:0">{{ assignment.created_date }} by {{ assignment.author }}</p>
+                                    <dt style="text-decoration: underline; margin-top:0"><h2>{{ assignment.title }}</h2></dt>
+                                    <dt style="margin-top:0"><h4>{{ assignment.content }}</h4></dt>
+
+                                    {% if assignment.doc_file.name %}
+                                        <dt><a href="{{ assignment.doc_file.url }}" download>{{ assignment.doc_file.name }}</a></dt>
+                                    {% endif %}
+                                    <dt style="margin-top:0"><p>Due: {{ assignment.due_date }}</p></dt>
+
+                                </dl>
+                            </div>
+
+                            {# assignment student upload linki #}
+                            <div style="flex:content; min-width: fit-content;text-align:center; margin-left: 5px" >
+                                <dt><a style="width:65px" href="{% url 'assignments_detail' pk=assignment.pk %}">Upload Assignment</a></dt>
+                                <br>
+                            </div>
+
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+
+            {% endif %}
+
+
+
+
+            {% if request.user.groups.all.0.name == "Instructor" or request.user.groups.all.0.name == "Assistant" %}
+
+                {% for assignment in assignments %}
+                    <div id = "{{ assignment.pk }}" style="display: block">
+                        <div  style=" display: flex; flex-direction: row ">
+                            <div style="flex: 100%;">
+                                <dl>
+                                    <p style="font-size:10px; margin-bottom:0">{{ assignment.created_date }} by {{ assignment.author }}</p>
+                                    <dt style="text-decoration: underline; margin-top:0"><h2>{{ assignment.title }}</h2></dt>
+                                    <dt style=" margin-top:0"><h4>{{ assignment.content }}</h4></dt>
+
+                                    {% if assignment.doc_file.name %}
+                                        <dt><a href="{{ assignment.doc_file.url }}" download>{{ assignment.doc_file.name }}</a></dt>
+                                    {% endif %}
+                                    <dt style="margin-top:0"><p>Due: {{ assignment.due_date }}</p></dt>
+
+                                </dl>
+                            </div>
+
+                            {# assignment detay linki #}
+                            {% for lecture in lectures %}
+                                {% if assignments.0.lecture.name == lecture.name %}
+                                    <div style="flex:content; min-width: fit-content;text-align:center; margin-left: 5px" >
+                                        <dt><a style="width:65px" href="{% url 'assignments_detail' pk=assignment.pk %}">Detail</a></dt>
+                                        <br>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                    <hr>
+                {% endfor %}
+
+                {#          eklenecek assignment#}
+
+                {% for lecture in lectures %}
+                    {% if assignments.0.lecture.name == lecture.name %}
+                        <hr style="border: 3px solid gray">
+                        <div id = "form" style=" display: flex; flex-direction: row ">
+                        <div style="flex: 100%;">
+
+                            <form action={% url 'upload_assignment' path=request.path %}  id="assignment" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+                                <dl>
+                                    <dt><input type="text" name="title" placeholder="Title" style="width:100%"> </dt>
+                                    <br>
+                                    <dt><input type="text" name="content" placeholder="Content" style="width:100%"> </dt>
+                                    <br>
+                                    <dd><input type="file" name="doc_file"></dd>
+                                    <br>
+                                    <dd><input type="date" name="due_date"></dd>
+                                </dl>
+
+                            </form>
+                        </div>
+
+                        <div style="flex:content; min-width: fit-content;text-align:center; margin-left: 5px" >
+                            {% csrf_token %} {{form}}
+                            <dt><button type="submit" onclick="submitForm()" id="assignment"  style="width:65px">Save</button></dt>
+                            <br>
+                            <dt><button id="assignment" onclick="formReset()" style="width:65px">Cancel</button></dt>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                {% if not assignments %}
+                    <hr style="border: 3px solid gray">
+                        <div id = "form" style=" display: flex; flex-direction: row ">
+                        <div style="flex: 100%;">
+
+                            <form action={% url 'upload_assignment' path=request.path %}  id="assignment" method="POST" enctype="multipart/form-data" >{% csrf_token %}
+                                <dl>
+                                    <dt><input type="text" name="title" placeholder="Title" style="width:100%"> </dt>
+                                    <br>
+                                    <dt><input type="text" name="content" placeholder="Content" style="width:100%"> </dt>
+                                    <br>
+                                    <dd><input type="file" name="doc_file"></dd>
+                                    <br>
+                                    <dd><input type="date" name="due_date"></dd>
+                                </dl>
+
+                            </form>
+                        </div>
+
+                        <div style="flex:content; min-width: fit-content;text-align:center; margin-left: 5px" >
+                            {% csrf_token %} {{form}}
+                            <dt><button type="submit" onclick="submitForm()" id="assignment"  style="width:65px">Save</button></dt>
+                            <br>
+                            <dt><button id="assignment" onclick="formReset()" style="width:65px">Cancel</button></dt>
+                        </div>
+                {% endif %}
+            {% endif %}
+            </div>
+        </div>
+{#        <div class="col-sm-2", id="content-right">#}
+{#            <h5>content-right</h5>#}
+{#        </div>#}
+</body>
+</html>

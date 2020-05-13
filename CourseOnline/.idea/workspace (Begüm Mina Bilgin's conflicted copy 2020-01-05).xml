@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="c4b07a6a-75fe-4a2f-8b2d-e38cc435b362" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>upload</find>
+      <find>detay</find>
+    </findStrings>
+  </component>
+  <component name="ProjectId" id="1TXCg40dtX1XFK5RiDIPSxc9qlx" />
+  <component name="PropertiesComponent">
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="CourseOnline" type="Python.DjangoServer" factoryName="Django server">
+      <module name="CourseOnline" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="CourseOnline.settings" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\smygt_000\AppData\Local\Programs\Python\Python38-32\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c4b07a6a-75fe-4a2f-8b2d-e38cc435b362" name="Default Changelist" comment="" />
+      <created>1573412650480</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573412650480</updated>
+      <workItem from="1573412656721" duration="2331000" />
+      <workItem from="1573499214894" duration="16567000" />
+      <workItem from="1573597168409" duration="454000" />
+      <workItem from="1573597641618" duration="1669000" />
+      <workItem from="1573640516049" duration="15096000" />
+      <workItem from="1573731908834" duration="3447000" />
+      <workItem from="1573743259393" duration="8255000" />
+      <workItem from="1573814789105" duration="97000" />
+      <workItem from="1573829879446" duration="4997000" />
+      <workItem from="1574062713573" duration="704000" />
+      <workItem from="1574173659228" duration="10589000" />
+      <workItem from="1574261452495" duration="3231000" />
+      <workItem from="1574269828167" duration="1246000" />
+      <workItem from="1574272419876" duration="328000" />
+      <workItem from="1574272843450" duration="1872000" />
+      <workItem from="1574777572805" duration="9364000" />
+      <workItem from="1575237772182" duration="1949000" />
+      <workItem from="1575239828552" duration="585000" />
+      <workItem from="1575240434626" duration="2631000" />
+      <workItem from="1575298916040" duration="26586000" />
+      <workItem from="1575469789221" duration="1456000" />
+      <workItem from="1575483800774" duration="8398000" />
+      <workItem from="1575550117179" duration="11073000" />
+      <workItem from="1575643783325" duration="6606000" />
+      <workItem from="1575726721678" duration="33040000" />
+      <workItem from="1576102445644" duration="4275000" />
+      <workItem from="1576155711916" duration="2562000" />
+      <workItem from="1576160065497" duration="24146000" />
+      <workItem from="1576497317803" duration="1233000" />
+      <workItem from="1576501026473" duration="1900000" />
+      <workItem from="1576672688494" duration="3438000" />
+      <workItem from="1576682763800" duration="7892000" />
+      <workItem from="1576829504667" duration="2469000" />
+      <workItem from="1577020078300" duration="1216000" />
+      <workItem from="1577027323408" duration="5996000" />
+      <workItem from="1577203772511" duration="1539000" />
+      <workItem from="1577208875742" duration="278000" />
+      <workItem from="1577619570206" duration="6218000" />
+      <workItem from="1577626258094" duration="1111000" />
+      <workItem from="1577627504641" duration="7633000" />
+      <workItem from="1577641087076" duration="6109000" />
+      <workItem from="1577703261296" duration="2679000" />
+      <workItem from="1577716693500" duration="7047000" />
+      <workItem from="1577977233035" duration="7871000" />
+      <workItem from="1578059340547" duration="1544000" />
+      <workItem from="1578167524346" duration="3488000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+</project>

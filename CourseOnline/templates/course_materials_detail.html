@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Course Online</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/CourseOnline.css' %}">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+
+<div class="container-fluid", id="container_fluid">
+
+    <div class="header", id="header">
+        <div id="header-left">
+
+        </div>
+
+        <div id="header-middle">
+            <div id="header-middle-up">
+                <button class="btn" onclick="location.href='/'" style="background-color: DodgerBlue; border: none;color: white;padding: 5px 10px;font-size: 16px;cursor: pointer;">
+                    <i class="fa fa-home"></i>
+                </button>            </div>
+            <div id="header-middle-down">
+{#                <h5>alt</h5>#}
+            </div>
+        </div>
+
+        <div id="header-right">
+
+            {% if user.is_authenticated %}
+                <p>Hello, {{ request.user }}</p>
+                <form method="post" action="{% url 'Logout' %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout"/>
+                </form>
+            {% else %}
+                {% block content %}
+                    {% if AuthenticationForm.errors %}
+                        <p>Your username and password didn't match. Please try again.</p>
+                    {% endif %}
+
+                    <form method="post" action="{% url 'Login' %}">
+                    {% csrf_token %}
+                    <table>
+                        <tr>
+                            <td>{{ AuthenticationForm.username.label_tag }}</td>
+                            <td>{{ AuthenticationForm.username }}</td>
+                        </tr>
+                        <tr>
+                            <td>{{ AuthenticationForm.password.label_tag }}</td>
+                            <td>{{ AuthenticationForm.password }}</td>
+                        </tr>
+                    </table>
+
+                    {#                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>#}
+                    <input type="submit" value="Login"/>
+                {% endblock %}
+            </form>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="row", id="content">
+        <div class="col-sm-2", id="content-left">
+            <br>
+            {% if user.is_authenticated %}
+                <form action={% url 'search' %}  id="search-form" method="GET" class="post-form">
+                    <div>
+                        <button onclick="location.href='/search'" style="width: 100%"><a href="/search">search</a></button>
+                        {#                      <button style="width: 100%"><a href="search">search</a></button>#}
+                    </div>
+                </form>
+                <hr>
+
+                {% for lecture in lectures %}
+                    <a href="{% url 'lecture' pk=lecture.pk %}">{{ lecture.name|linebreaksbr }}</a>
+                    <hr>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="col-sm-10", id="content-middle">
+            <br>
+            {% if user.groups.all.0.name == "Instructor" or user.groups.all.0.name == "Assistant"%}
+
+                {% if user.is_authenticated %}
+                    {% for lecture in lectures %}
+                        {% if course_materials.lecture.name == lecture.name %}
+                            {% if course_materials.created_date %}
+                                <div class="date">
+                                    {{ course_materials.created_date }}
+                                </div>
+                            {% endif %}
+                            {#                seçilen course material#}
+                            <a class="btn btn-default" href="{% url 'edit_course_material' pk=course_materials.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <form action="{% url 'delete_course_material' %}" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="pk" value="{{ course_materials.pk }}">
+                                <button type="submit">Delete</button>
+                            </form>
+                            <h1>{{ course_materials.title }}</h1>
+                            {% if course_materials.doc_file %}
+                                <dt><a href="{{ course_materials.doc_file.url }}" download>{{ course_materials.doc_file.name }}</a></dt>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+
+        </div>
+{#        <div class="col-sm-2", id="content-right">#}
+{#            <h5>content-right</h5>#}
+{#        </div>#}
+
+    </div>
+
+</div>
+</body>
+</html>

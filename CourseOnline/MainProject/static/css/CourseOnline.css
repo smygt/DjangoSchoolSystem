@@ -1,0 +1,113 @@
+        #container_fluid{
+            #border:2px solid #4f4f4f;
+            padding:0;
+            margin:0;
+            width:100%;
+            height:100%;
+            display: grid;
+            #grid-template-rows: 17% 73% 10%;
+        }
+
+        #header{
+            /*border-radius: 15px;*/
+            /*border:2px solid #4f4f4f;*/
+            display: flex;
+            background-color: teal;
+            padding-left: 1vh;
+            padding-top: 1vh;
+            padding-right: 1vh;
+
+        /*{#height: 17vh;#}*/
+        /*{#border: 2px solid #4f4f4f;#}*/
+        }
+
+        #header-left{
+            padding: 1vh;
+            #border: 2px solid #4f4f4f;
+            flex:2;
+            text-align: left;
+        }
+        #header-middle{
+            padding-left: 1vh;
+            padding-top: 1vh;
+            padding-right: 1vh;
+            #border: 2px solid #4f4f4f;
+            flex:8;
+            display: flex;
+            text-align: left;
+            flex-direction: column;
+        }
+
+        #header-middle-up{
+            #border: 2px solid #4f4f4f;
+            flex:3;
+            padding-left: 1vh;
+        }
+        #header-middle-down{
+            #border: 2px solid #4f4f4f;
+            flex:7;
+            display: flex;
+            align-items: flex-end;
+            padding-left: 1vh;
+        }
+
+        #header-right{
+            #border: 2px solid #4f4f4f;
+            flex:2;
+            text-align: right;
+            width: 100%;
+            height: 110px;
+            min-width: fit-content;
+            padding: 1vh;
+        }
+
+        #content{
+            background-color: teal;
+
+            /*border-radius: 15px;*/
+            margin:0px;
+            text-align: left;
+            /*border: 2px solid black;*/
+            height: 100vh;
+        /*{#height: 78vh;#}*/
+        }
+
+        #content-left{
+            border-radius: 15px;
+            /*min-width: fit-content;*/
+            /*padding-left: 1vh;*/
+            border: 2px solid teal;
+            background-color: white;
+            width:100%;
+                        min-height: 100%;
+
+        /*{#background-color: teal;#}*/
+
+        }
+        #content-middle{
+            border-radius: 15px;
+            border: 2px solid teal;
+            width: 100%;
+            min-height: 100%;
+            background-color: white;
+
+        }
+        #content-right{
+            border-radius: 15px;
+            border: 2px solid teal;
+            background-color: white;
+        /*{#background-color: teal;#}*/
+            width: 100%;
+        }
+
+
+        #footer{
+            text-align: center;
+            border: 2px solid #4f4f4f;
+        }
+        body{
+            #width: 100vw;
+            height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
